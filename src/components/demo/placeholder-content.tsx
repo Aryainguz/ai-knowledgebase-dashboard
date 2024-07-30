@@ -32,7 +32,7 @@ export default function PlaceholderContent() {
                         </div>
                         <Plus size={17} className="text-muted-foreground" />
                       </CardHeader>
-                      <CardDescription className="text-sm mx-5 mb-4 font-semibold text-black">
+                      <CardDescription className="text-sm mx-5 mb-4 font-semibold text-black dark:text-white">
                         New Documents
                       </CardDescription>
                     </Card>
@@ -43,7 +43,7 @@ export default function PlaceholderContent() {
                         </div>
                         <Plus size={17} className="text-muted-foreground" />
                       </CardHeader>
-                      <CardDescription className="text-sm mx-5 mb-4 font-semibold text-black">
+                      <CardDescription className="text-sm mx-5 mb-4 font-semibold text-black dark:text-white">
                         New SpreadSheet
                       </CardDescription>
                     </Card>
@@ -54,7 +54,7 @@ export default function PlaceholderContent() {
                         </div>
                         <Plus size={17} className="text-muted-foreground" />
                       </CardHeader>
-                      <CardDescription className="text-sm mx-5 mb-4 font-semibold text-black">
+                      <CardDescription className="text-sm mx-5 mb-4 font-semibold text-black dark:text-white">
                         New Project
                       </CardDescription>
                     </Card>
@@ -65,7 +65,7 @@ export default function PlaceholderContent() {
                         </div>
                         <Plus size={17} className="text-muted-foreground" />
                       </CardHeader>
-                      <CardDescription className="text-sm mx-5 mb-4 font-semibold text-black">
+                      <CardDescription className="text-sm mx-5 mb-4 font-semibold text-black dark:text-white">
                         New Team
                       </CardDescription>
                     </Card>
@@ -89,13 +89,13 @@ export default function PlaceholderContent() {
                     <Card className="w-[300px] p-2 flex items-center justify-center hover:cursor-pointer " >
 
                       <div className="p-3">
-                        <div className="bg-gray-100 p-3 rounded-2xl">
+                        <div className="bg-gray-100 dark:bg-white p-3 rounded-2xl">
                           <FileText size={27} />
                         </div>
                       </div>
 
                       <div className="flex flex-col">
-                        <CardDescription className="text-sm font-semibold text-black ">
+                        <CardDescription className="text-sm font-semibold text-black dark:text-white">
                           Dashboard Requirement
                         </CardDescription>
                         <div className="flex  gap-2">
