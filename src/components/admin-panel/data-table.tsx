@@ -39,48 +39,49 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { WifiOff, Trash, TextCursorInput } from "lucide-react"
 
-const data: Payment[] = [
+const data: Documents[] = [
     {
         id: "m5gr84i9",
-        amount: 316,
-        status: "success",
-        email: "ken99@yahoo.com",
+        size: "31 Kb",
+        name: "Dashboard Requirement ",
+        type: "docx",
     },
     {
         id: "3u1reuv4",
-        amount: 242,
-        status: "success",
-        email: "Abe45@gmail.com",
+        size: "63 Kb",
+        name: "Project Spreadsheet",
+        type: "csv",
     },
     {
         id: "derv1ws0",
-        amount: 837,
-        status: "processing",
-        email: "Monserrat44@gmail.com",
+        size: "71 Kb",
+        name: "Projext Status",
+        type: "pdf",
     },
     {
         id: "5kma53ae",
-        amount: 874,
-        status: "success",
-        email: "Silas22@gmail.com",
+        size: "12 Kb",
+        name: "Requirement Latest",
+        type: "txt",
     },
     {
         id: "bhqecj4p",
-        amount: 721,
-        status: "failed",
-        email: "carmella@hotmail.com",
+        size: "1 Mb",
+        name: "Transaction Pdf",
+        type: "pdf",
     },
 ]
 
-export type Payment = {
+export type Documents = {
     id: string
-    amount: number
-    status: "pending" | "processing" | "success" | "failed"
-    email: string
+    size: string
+    name: string
+    type: string
 }
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Documents>[] = [
     {
         id: "select",
         header: ({ table }: any) => (
@@ -104,40 +105,40 @@ export const columns: ColumnDef<Payment>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "name",
+        header: "Name",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("status")}</div>
+            <div className="capitalize">{row.getValue("name")}</div>
         ),
     },
     {
-        accessorKey: "email",
+        accessorKey: "type",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Email
+                    Type
                     <CaretSortIcon className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue("type")}</div>,
     },
     {
-        accessorKey: "amount",
-        header: () => <div className="text-right">Amount</div>,
+        accessorKey: "size",
+        header: () => <div className="text-right">Size</div>,
         cell: ({ row }) => {
-            const amount = parseFloat(row.getValue("amount"))
+            // const size = parseFloat(row.getValue("size"))
 
-            // Format the amount as a dollar amount
-            const formatted = new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-            }).format(amount)
+            // // Format the size as a dollar size
+            // const formatted = new Intl.NumberFormat("en-US", {
+            //     style: "currency",
+            //     currency: "USD",
+            // }).format(size)
 
-            return <div className="text-right font-medium">{formatted}</div>
+            return <div className="text-right font-medium">{row.getValue("size")}</div>
         },
     },
     {
@@ -159,11 +160,11 @@ export const columns: ColumnDef<Payment>[] = [
                         <DropdownMenuItem
                             onClick={() => navigator.clipboard.writeText(payment.id)}
                         >
-                            Copy payment ID
+                            <TextCursorInput size={14} className="mr-2" />{" "}   Rename
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>View payment details</DropdownMenuItem>
+                        <DropdownMenuItem><WifiOff size={12} className="mr-2" />{" "}Available Offline</DropdownMenuItem>
+                        <DropdownMenuItem className="bg-red-50 hover:cursor-pointer"><Trash size={12} className="mr-2 " />{" "}Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
@@ -203,10 +204,10 @@ export function DataTableDemo() {
         <div className="w-full">
             <div className="flex items-center py-4">
                 <Input
-                    placeholder="Filter emails..."
-                    value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+                    placeholder="Filter types..."
+                    value={(table.getColumn("type")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("email")?.setFilterValue(event.target.value)
+                        table.getColumn("type")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
