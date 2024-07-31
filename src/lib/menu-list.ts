@@ -6,7 +6,8 @@ import {
   SquarePen,
   LayoutGrid,
   LucideIcon,
-  Folder
+  Folder,
+  Bot
 } from 'lucide-react'
 
 type Submenu = {
@@ -72,7 +73,7 @@ export function getMenuList (pathname: string): Group[] {
           href: '/prompts',
           label: 'Prompts',
           active: pathname.includes('/prompts'),
-          icon: Bookmark,
+          icon: Bot,
           submenus: []
         },
         {
