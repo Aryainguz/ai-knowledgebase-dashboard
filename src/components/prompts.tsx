@@ -149,9 +149,9 @@ export default function Prompts() {
           </form>
         </div>
         <div className="relative flex h-[640px] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
-          <Badge variant="outline" className="absolute right-3 top-3">
+          {/* <Badge variant="outline" className="absolute right-5 top-[-29px]">
             Output
-          </Badge>
+          </Badge> */}
           <div className="flex-1 h-[400px] overflow-y-auto p-4 space-y-4">
             <div className="flex flex-col  items-start w-full relative">
               <div className="w-full rounded-lg p-4 bg-gray-200 text-sm">
