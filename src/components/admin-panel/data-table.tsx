@@ -164,7 +164,7 @@ export const columns: ColumnDef<Documents>[] = [
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem><WifiOff size={12} className="mr-2" />{" "}Available Offline</DropdownMenuItem>
-                        <DropdownMenuItem className="bg-red-50 hover:cursor-pointer"><Trash size={12} className="mr-2 " />{" "}Delete</DropdownMenuItem>
+                        <DropdownMenuItem className="bg-red-50 dark:text-black hover:bg-red-100 hover:cursor-pointer"><Trash size={12} className="mr-2 " />{" "}Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
