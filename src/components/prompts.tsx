@@ -8,6 +8,8 @@ import {
   Turtle,
   ThumbsUp,
   ThumbsDown,
+  Copy,
+  RefreshCcw,
   Bot,
   Edit,
 } from "lucide-react"
@@ -34,7 +36,7 @@ import { TooltipProvider } from "@radix-ui/react-tooltip"
 export default function Prompts() {
   return (
     <TooltipProvider>
-      <main className="grid dark:bg-black mt-6 rounded-lg bg-white flex-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+      <main className="grid dark:bg-black mt-6 rounded-lg bg-white shadow-lg flex-1 gap-4 sm:p-2 lg:p-5 md:p-5 md:grid-cols-2 lg:grid-cols-3">
         <div
           className="relative hidden flex-col items-start gap-8 md:flex"
           x-chunk="dashboard-03-chunk-0"
@@ -148,11 +150,13 @@ export default function Prompts() {
             </fieldset>
           </form>
         </div>
-        <div className="relative flex h-[640px] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
-          {/* <Badge variant="outline" className="absolute right-5 top-[-29px]">
+        <div className="relative flex h-[640px] flex-col rounded-xl bg-muted/50 md:p-4 lg:p-4 sm:p-0  lg:col-span-2">
+          <Badge variant="outline" className="absolute hidden md:block right-3 top-[-10px]">
             Output
-          </Badge> */}
-          <div className="flex-1 h-[400px] overflow-y-auto p-4 space-y-4">
+          </Badge>
+
+          <div className="flex-1 h-[400px] overflow-y-auto p-2 space-y-4">
+
             <div className="flex flex-col  items-start w-full relative">
               <div className="w-full rounded-lg p-4 bg-gray-200 text-sm">
                 <p className="text-gray-900">User: Can you provide more details?</p>
@@ -164,51 +168,30 @@ export default function Prompts() {
               </div>
             </div>
             <div className="flex flex-col items-end w-full relative">
-              <div className="w-full flex gap-1 dark:bg-black  rounded-lg p-4 bg-white text-sm  items-center space-x-2">
-                <div>
-                  <Bot size={20} />
+              <div className="w-full flex flex-col gap-1 dark:bg-black rounded-lg p-4 bg-white text-sm space-y-2">
+                <div className="flex gap-3 items-center space-x-2">
+                  <div>
+                    <Bot size={20} />
+                  </div>
+                  <div className="flex-1 text-black dark:text-white">
+                    AI: It involves Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, eum. several stages including planning, coding, testing, and maintenance.
+                  </div>
                 </div>
-                <div className="text-black dark:text-white">AI: It involves Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, eum. several stages including planning, coding, testing, and maintenance.</div>
-              </div>
-
-            </div>
-            <div className="flex flex-col  items-start w-full relative">
-              <div className="w-full rounded-lg p-4 bg-gray-200 text-sm">
-                <p className="text-gray-900">User: Can you provide more details?</p>
-              </div>
-              <div className="absolute top-2 right-2 flex space-x-2">
-                <Button className="dark:bg-black" variant="ghost" size="icon">
-                  <Edit className="size-4" />
-                </Button>
-              </div>
-            </div>
-            <div className="flex flex-col items-end w-full relative">
-              <div className="w-full flex gap-1 dark:bg-black  rounded-lg p-4 bg-white text-sm  items-center space-x-2">
-                <div>
-                  <Bot size={20} />
+                <div className="flex justify-end space-x-1 mt-2">
+                  <button className="p-1 rounded  hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <Copy size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <RefreshCcw size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <ThumbsUp size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <ThumbsDown size={14} />
+                  </button>
                 </div>
-                <div className="text-black dark:text-white">AI: It involves Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, eum. several stages including planning, coding, testing, and maintenance.</div>
               </div>
-
-            </div>
-            <div className="flex flex-col  items-start w-full relative">
-              <div className="w-full rounded-lg p-4 bg-gray-200 text-sm">
-                <p className="text-gray-900">User: Can you provide more details?</p>
-              </div>
-              <div className="absolute top-2 right-2 flex space-x-2">
-                <Button className="dark:bg-black" variant="ghost" size="icon">
-                  <Edit className="size-4" />
-                </Button>
-              </div>
-            </div>
-            <div className="flex flex-col items-end w-full relative">
-              <div className="w-full flex gap-1 dark:bg-black  rounded-lg p-4 bg-white text-sm  items-center space-x-2">
-                <div>
-                  <Bot size={20} />
-                </div>
-                <div className="text-black dark:text-white">AI: It involves Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, eum. several stages including planning, coding, testing, and maintenance.</div>
-              </div>
-
             </div>
             <div className="flex flex-col  items-start w-full relative">
               <div className="w-full rounded-lg p-4 bg-gray-200 text-sm">
@@ -221,19 +204,108 @@ export default function Prompts() {
               </div>
             </div>
             <div className="flex flex-col items-end w-full relative">
-              <div className="w-full flex gap-1 dark:bg-black  rounded-lg p-4 bg-white text-sm  items-center space-x-2">
-                <div>
-                  <Bot size={20} />
+              <div className="w-full flex flex-col gap-1 dark:bg-black rounded-lg p-4 bg-white text-sm space-y-2">
+                <div className="flex gap-3 items-center space-x-2">
+                  <div>
+                    <Bot size={20} />
+                  </div>
+                  <div className="flex-1 text-black dark:text-white">
+                    AI: It involves Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, eum. several stages including planning, coding,Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga voluptas neque libero! testing, and maintenance.
+                  </div>
                 </div>
-                <div className="text-black dark:text-white">AI: It involves Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, eum. several stages including planning, coding, testing, and maintenance.</div>
+                <div className="flex justify-end space-x-1 mt-2">
+                  <button className="p-1 rounded  hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <Copy size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <RefreshCcw size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <ThumbsUp size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <ThumbsDown size={14} />
+                  </button>
+                </div>
               </div>
-
+            </div>
+            <div className="flex flex-col  items-start w-full relative">
+              <div className="w-full rounded-lg p-4 bg-gray-200 text-sm">
+                <p className="text-gray-900">User: Can you provide more details?</p>
+              </div>
+              <div className="absolute top-2 right-2 flex space-x-2">
+                <Button className="dark:bg-black" variant="ghost" size="icon">
+                  <Edit className="size-4" />
+                </Button>
+              </div>
+            </div>
+            <div className="flex flex-col items-end w-full relative">
+              <div className="w-full flex flex-col gap-1 dark:bg-black rounded-lg p-4 bg-white text-sm space-y-2">
+                <div className="flex gap-3 items-center space-x-2">
+                  <div>
+                    <Bot size={20} />
+                  </div>
+                  <div className="flex-1 text-black dark:text-white">
+                    AI: It involves Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, eum. several stages including planning, coding, testing, and maintenance.
+                  </div>
+                </div>
+                <div className="flex justify-end space-x-1 mt-2">
+                  <button className="p-1 rounded  hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <Copy size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <RefreshCcw size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <ThumbsUp size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <ThumbsDown size={14} />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col  items-start w-full relative">
+              <div className="w-full rounded-lg p-4 bg-gray-200 text-sm">
+                <p className="text-gray-900">User: Can you provide more details?</p>
+              </div>
+              <div className="absolute top-2 right-2 flex space-x-2">
+                <Button className="dark:bg-black" variant="ghost" size="icon">
+                  <Edit className="size-4" />
+                </Button>
+              </div>
+            </div>
+            <div className="flex flex-col items-end w-full relative">
+              <div className="w-full flex flex-col gap-1 dark:bg-black rounded-lg p-4 bg-white text-sm space-y-2">
+                <div className="flex gap-3 items-center space-x-2">
+                  <div>
+                    <Bot size={20} />
+                  </div>
+                  <div className="flex-1 text-black dark:text-white">
+                    AI: It involves Lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio possimus recusandae laborum facilis doloribus, eveniet nisi dolore aperiam dolorem consequatur quidem quam non. ipsum dolor sit amet consectetur adipisicing elit. Molestias, eum. several stages including planning, coding, testing, and maintenance.
+                  </div>
+                </div>
+                <div className="flex justify-end space-x-1 mt-2">
+                  <button className="p-1 rounded  hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <Copy size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <RefreshCcw size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <ThumbsUp size={14} />
+                  </button>
+                  <button className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ">
+                    <ThumbsDown size={14} />
+                  </button>
+                </div>
+              </div>
             </div>
 
 
           </div>
           <form
-            className="sticky bottom-0 bg-white dark:bg-black p-4 rounded-t-lg border-t"
+            className="sticky bottom-0 bg-white dark:bg-black sm:p-[0px] lg:p-4 md:p-4 rounded-t-lg border-t"
             x-chunk="dashboard-03-chunk-1"
           >
             <Label htmlFor="message" className="sr-only">
