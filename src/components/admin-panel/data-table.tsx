@@ -39,7 +39,10 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { WifiOff, Trash, TextCursorInput } from "lucide-react"
+import { Trash, Pencil, FileText } from "lucide-react"
+import { withDataTable } from "../HOC/withTable"
+import { BsFiletypeDocx, BsFiletypeCsv, BsFiletypeTxt, BsFiletypePdf } from "react-icons/bs"
+import { Badge } from "../ui/badge"
 
 const data: Documents[] = [
     {
@@ -47,30 +50,56 @@ const data: Documents[] = [
         size: "31 Kb",
         name: "Dashboard Requirement ",
         type: "docx",
+        description: "Description for Dashboard Requirement",
+        tags: ["Urgent", "Dashboard"]
     },
     {
         id: "3u1reuv4",
         size: "63 Kb",
         name: "Project Spreadsheet",
         type: "csv",
+        description: "Description for Project Spreadsheet",
+        tags: ["Urgent", "Dashboard"]
     },
     {
         id: "derv1ws0",
         size: "71 Kb",
         name: "Projext Status",
         type: "pdf",
+        description: "Description for Projext Status",
+        tags: ["Urgent", "Dashboard"]
     },
     {
         id: "5kma53ae",
         size: "12 Kb",
         name: "Requirement Latest",
         type: "txt",
+        description: "Description for Requirement Latest",
+        tags: ["Urgent", "Dashboard"]
     },
     {
         id: "bhqecj4p",
         size: "1 Mb",
         name: "Transaction Pdf",
         type: "pdf",
+        description: "Description for Transaction Pdf",
+        tags: ["Urgent", "Dashboard"]
+    },
+    {
+        id: "bhqecj23p",
+        size: "2 Mb",
+        name: "Blogging Pdf",
+        type: "pdf",
+        description: "Description for Blogging Pdf",
+        tags: ["Urgent", "Dashboard"]
+    },
+    {
+        id: "bhqevds4p",
+        size: "120 Kb",
+        name: "Transaction Pdf",
+        type: "pdf",
+        description: "Description for Transaction Pdf",
+        tags: ["Urgent", "Dashboard"]
     },
 ]
 
@@ -79,7 +108,14 @@ export type Documents = {
     size: string
     name: string
     type: string
+    description: string
+    tags: string[]
 }
+
+const tagColorMap: Record<string, string> = {
+    Urgent: "bg-red-100 text-black hover:shadow-xl",
+    Dashboard: "bg-sky-100 text-black hover:shadow-xl",
+};
 
 export const columns: ColumnDef<Documents>[] = [
     {
@@ -107,10 +143,59 @@ export const columns: ColumnDef<Documents>[] = [
     {
         accessorKey: "name",
         header: "Name",
-        cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("name")}</div>
-        ),
+        cell: ({ row }) => {
+            const type = row.original.type;
+            let IconComponent;
+
+            switch (type) {
+                case 'docx':
+                    IconComponent = BsFiletypeDocx;
+                    break;
+                case 'csv':
+                    IconComponent = BsFiletypeCsv;
+                    break;
+                case 'txt':
+                    IconComponent = BsFiletypeTxt;
+                    break;
+                case 'pdf':
+                    IconComponent = BsFiletypePdf;
+                    break;
+                default:
+                    IconComponent = FileText; // Default icon if type is not matched
+            }
+
+            return (
+                <div className="flex items-center space-x-2">
+                    <IconComponent className="h-5 w-5 text-gray-500" />
+                    <div>
+                        <div className="font-bold">{row.getValue("name")}</div>
+                        <div className="text-xs text-gray-500">{row.original.description}</div>
+                    </div>
+                </div>
+            );
+        },
     },
+    {
+        accessorKey: "tags",
+        header: "Tags",
+        cell: ({ row }) => {
+            const tags = row.getValue<string[]>("tags"); // Adjust according to the actual type of tags
+
+            return (
+                <div className="flex space-x-2">
+                    {tags.map((tag: string, index: number) => (
+                        <Badge
+                            key={index}
+                            className={`px-2 py-1 rounded-md hover:text-white ${tagColorMap[tag] || "bg-gray-300 text-black"}`}
+                        >
+                            {tag}
+                        </Badge>
+                    ))}
+                </div>
+            );
+        },
+    },
+
     {
         accessorKey: "type",
         header: ({ column }) => {
@@ -124,21 +209,13 @@ export const columns: ColumnDef<Documents>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue("type")}</div>,
+        cell: ({ row }) => <div style={{ width: "70px" }} className="lowercase text-center">{row.getValue("type")}</div>,
     },
     {
         accessorKey: "size",
         header: () => <div className="text-right">Size</div>,
         cell: ({ row }) => {
-            // const size = parseFloat(row.getValue("size"))
-
-            // // Format the size as a dollar size
-            // const formatted = new Intl.NumberFormat("en-US", {
-            //     style: "currency",
-            //     currency: "USD",
-            // }).format(size)
-
-            return <div className="text-right font-medium">{row.getValue("size")}</div>
+            return <div className="text-right items-center font-medium">{row.getValue("size")}</div>
         },
     },
     {
@@ -157,14 +234,9 @@ export const columns: ColumnDef<Documents>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
-                        >
-                            <TextCursorInput size={14} className="mr-2" />{" "}   Rename
-                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem><WifiOff size={12} className="mr-2" />{" "}Available Offline</DropdownMenuItem>
-                        <DropdownMenuItem className="bg-red-50 dark:text-black hover:bg-red-100 hover:cursor-pointer"><Trash size={12} className="mr-2 " />{" "}Delete</DropdownMenuItem>
+                        <DropdownMenuItem><Pencil size={12} className="mr-2" />{" "}Edit</DropdownMenuItem>
+                        <DropdownMenuItem className="bg-red-100 hover:bg-red-200 dark:hover:bg-red-100 dark:text-black hover:cursor-pointer"><Trash size={12} className="mr-2 " />{" "}Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
@@ -172,34 +244,7 @@ export const columns: ColumnDef<Documents>[] = [
     },
 ]
 
-export function DataTableDemo() {
-    const [sorting, setSorting] = React.useState<SortingState>([])
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-        []
-    )
-    const [columnVisibility, setColumnVisibility] =
-        React.useState<VisibilityState>({})
-    const [rowSelection, setRowSelection] = React.useState({})
-
-    const table = useReactTable({
-        data,
-        columns,
-        onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-        getFilteredRowModel: getFilteredRowModel(),
-        onColumnVisibilityChange: setColumnVisibility,
-        onRowSelectionChange: setRowSelection,
-        state: {
-            sorting,
-            columnFilters,
-            columnVisibility,
-            rowSelection,
-        },
-    })
-
+function DataTableComponent({ table }: { table: ReturnType<typeof useReactTable> }) {
     return (
         <div className="w-full">
             <div className="flex items-center py-4">
@@ -221,20 +266,18 @@ export function DataTableDemo() {
                         {table
                             .getAllColumns()
                             .filter((column) => column.getCanHide())
-                            .map((column) => {
-                                return (
-                                    <DropdownMenuCheckboxItem
-                                        key={column.id}
-                                        className="capitalize"
-                                        checked={column.getIsVisible()}
-                                        onCheckedChange={(value) =>
-                                            column.toggleVisibility(!!value)
-                                        }
-                                    >
-                                        {column.id}
-                                    </DropdownMenuCheckboxItem>
-                                )
-                            })}
+                            .map((column) => (
+                                <DropdownMenuCheckboxItem
+                                    key={column.id}
+                                    className="capitalize"
+                                    checked={column.getIsVisible()}
+                                    onCheckedChange={(value) =>
+                                        column.toggleVisibility(!!value)
+                                    }
+                                >
+                                    {column.id}
+                                </DropdownMenuCheckboxItem>
+                            ))}
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
@@ -243,18 +286,16 @@ export function DataTableDemo() {
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )}
-                                        </TableHead>
-                                    )
-                                })}
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead key={header.id}>
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
+                                    </TableHead>
+                                ))}
                             </TableRow>
                         ))}
                     </TableHeader>
@@ -310,8 +351,14 @@ export function DataTableDemo() {
                     >
                         Next
                     </Button>
+                    <span className="text-xs font-light bg-gray-200 text-black p-2 rounded-xl">
+                        Page {table.getState().pagination.pageIndex + 1} of{" "}
+                        {table.getPageCount()}
+                    </span>
                 </div>
             </div>
         </div>
     )
 }
+
+export const DataTable = withDataTable(DataTableComponent, columns, data)

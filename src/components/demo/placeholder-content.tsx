@@ -14,7 +14,8 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { DataTableDemo } from "../admin-panel/data-table";
+import { DataTable } from "../admin-panel/data-table";
+
 
 export default function PlaceholderContent() {
   return (
@@ -127,7 +128,8 @@ export default function PlaceholderContent() {
                 </div>
 
                 <TabsContent value="viewall">
-                  <DataTableDemo />
+                  <DataTable />
+                  {/* <NewTable /> */}
                 </TabsContent>
                 <TabsContent value="documents">
                   <Card>
